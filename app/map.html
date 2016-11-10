@@ -1,0 +1,125 @@
+
+ <div id="main">
+      <div style="margin-top:50px;margin-left:70px">
+   <button type="button" class="btn btn-default"  (click)="add()">Add Location</button>
+   <button type="button" style="margin-left: 23px;" class="btn btn-default" (click)="getLocation()">All Location</button>
+    
+<br><br>
+</div>
+<div class="container">
+  <div class="map">
+        <sebm-google-map
+          [latitude]="lat"
+          [longitude]="lng"
+          [zoom]="zoom"
+          [disableDefaultUI]= false
+          [zoomControl]= false
+
+          >
+
+
+
+
+          <sebm-google-map-marker [iconUrl]="m.checked ? 'http://maps.google.com/mapfiles/ms/icons/green.png' :  'http://maps.google.com/mapfiles/ms/icons/red.png' "
+            *ngFor="let m of markers, let i = index"
+         
+            [latitude]="m.lat"
+            [longitude]="m.lng"
+
+          
+           
+          >
+         <sebm-google-map-info-window>
+              <strong>{{m.name}}</strong><br>
+              
+              <br>
+           
+            </sebm-google-map-info-window>
+          </sebm-google-map-marker>
+        </sebm-google-map>
+
+ 
+
+  </div>
+
+</div>
+ </div>
+<div id="myNav"  class="overlay">
+  <div class="panel panel-body" style="
+    margin: 5px;
+">
+    <div>
+        <button type="button" class="glyphicon glyphicon-remove"  (click)="close('myNav')"></button>
+      <h2>Add Location</h2>
+    
+    </div>
+<br>
+<form (submit)="addMarker()" >
+            <div class="form-group">
+              <label>Location Name</label>
+            <input type="text" class="form-control" [(ngModel)]="name" name="markerName" required>
+            </div>
+            <div class="form-group">
+              <label>Latitude</label>
+            <input type="text" class="form-control" [(ngModel)]="markerLat" name="markerLat" required>
+            </div>
+            <div class="form-group">
+           <label>Longitude</label>
+            <input type="text" class="form-control" [(ngModel)]="markerLng" name="markerLng" required>
+            </div>
+         <div class="form-group">
+             
+           <input type="checkbox"  [(ngModel)]="checked" name="checked">
+              Is-Active
+            
+              </div>
+              <button  type="submit" class="btn btn-success"  >Save</button>
+           
+          </form>
+
+        </div>
+</div>
+
+
+<div id="locations" class="overlay1">
+   
+<div class="panel-body" style="
+    margin: 5px;
+">
+  <div>
+   <button type="button" class="glyphicon glyphicon-remove"  (click)="close('locations')"></button>
+   <h2> Locations List</h2>
+    
+  </div>
+<br>
+
+  <table class="table table-bordered">
+       <thead>
+         <tr>
+           <th>Index</th>
+       <th>Name</th>
+       <th>Latitude</th>
+       <th>Longitude</th>
+       <th>check</th>
+       </tr>
+       </thead>
+       <tbody >
+  <tr *ngFor="let m of markers, let i = index">
+  
+    <td>{{i+1}}</td>
+    <td>{{m.name|uppercase}}</td>
+    <td>{{m.lat}}</td>
+    <td>{{m.lng}}</td>
+    <td><input type="checkbox" [(ngModel)]="m.checked"></td>
+ </tr>
+       </tbody>
+     </table>
+  
+    
+</div>
+</div>
+
+
+
+
+
